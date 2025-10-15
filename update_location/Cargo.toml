@@ -1,12 +1,10 @@
 [package]
-name = "qwe"
+name = "update_location"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 url = {version = "2.5" , features = ["serde"]}
-time = { version = "0.3", features = ["serde"]}
-humantime = "2.3"
 thiserror = "2.0"
 config = "0.15"
 humantime-serde = "1.1"
