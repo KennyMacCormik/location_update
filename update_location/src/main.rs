@@ -11,6 +11,7 @@ fn main() {
     match load_config(&args) {
         Ok(cfg) => {
             println!("Endpoint: {}", cfg.iproyal.get_endpoint());
+            println!("Token: {}", cfg.iproyal.get_token());
             println!("Timeout: {:?}", cfg.iproyal.get_timeout());
         }
         Err(e) => {

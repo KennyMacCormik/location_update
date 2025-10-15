@@ -8,8 +8,8 @@ pub struct IPRoyalConfig {
     endpoint: Url,
     token: String,
 
-    #[serde(with = "humantime_serde")]
-    timeout: Duration,
+    #[serde(default, with = "humantime_serde::option")]
+    timeout: Option<Duration>,
 }
 
 impl IPRoyalConfig {
@@ -24,7 +24,7 @@ impl IPRoyalConfig {
     }
 
     /// Get the configured timeout
-    pub fn get_timeout(&self) -> &Duration {
-        &self.timeout
+    pub fn get_timeout(&self) -> Option<&Duration> {
+        self.timeout.as_ref()
     }
 }
