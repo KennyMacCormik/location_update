@@ -2,17 +2,20 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum ConfigError {
-    #[error("could not read config file {path}: {error}")]
-    IoError {
-        path: String,
-        #[source]
-        error: std::io::Error,
-    },
-
-    #[error("invalid TOML format in {path}: {error}")]
-    InvalidConfigFormat {
-        path: String,
+    #[error("failed to override key {key} with {value}: {error}")]
+    OverrideConfigFormat {
+        key: String,
+        value: String,
         #[source]
         error: toml::de::Error,
+    },
+
+    #[error("failed to build config: {0}")]
+    BuildConfigError(#[from] config::ConfigError),
+
+    #[error("failed to deserialize config: {source}")]
+    DeserializeConfigError {
+        #[source]
+        source: config::ConfigError,
     },
 }

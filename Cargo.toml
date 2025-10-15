@@ -1,0 +1,3 @@
+[workspace]
+members = ["libs/override_key_derive","update_location"]
+resolver = "2"

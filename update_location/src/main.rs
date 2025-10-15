@@ -3,13 +3,19 @@ mod init;
 
 use clap::Parser;
 use crate::init::load_config;
-use crate::models::CLIArgs;
+use crate::models::{CLIArgs};
 
-fn main() -> anyhow::Result<()> {
+fn main() {
     let args = CLIArgs::parse();
 
-    let cfg = load_config(&args)?;
-    println!("Endpoint: {}", cfg.iproyal.get_endpoint());
-    println!("Timeout: {:?}", cfg.iproyal.get_timeout());
-    Ok(())
+    match load_config(&args) {
+        Ok(cfg) => {
+            println!("Endpoint: {}", cfg.iproyal.get_endpoint());
+            println!("Timeout: {:?}", cfg.iproyal.get_timeout());
+        }
+        Err(e) => {
+            eprintln!("{e}");
+            std::process::exit(1);
+        }
+    }
 }
