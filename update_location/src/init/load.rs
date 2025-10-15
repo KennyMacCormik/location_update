@@ -13,6 +13,7 @@ pub fn load_config(args: &CLIArgs) -> Result<AppConfig, ConfigError> {
     // Medium priority: environment variables
     builder = builder.add_source(
         Environment::with_prefix(ENV_PREFIX)
+        .separator("_")
     );
 
     builder = args.apply_overrides(builder)?;
