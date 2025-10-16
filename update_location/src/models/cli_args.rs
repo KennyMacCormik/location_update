@@ -1,6 +1,6 @@
 use clap::Parser;
+use override_key_core::ApplyOverrides;
 use override_key_derive::ApplyOverrides;
-use crate::models::ApplyOverrides;
 
 /// Command-line arguments for update_location
 #[derive(Parser, ApplyOverrides)]
@@ -12,16 +12,16 @@ pub struct CLIArgs {
 
     /// IPRoyal API endpoint
     #[arg(long)]
-    #[override_key("iproyal.endpoint")]
+    #[override_key = "iproyal.endpoint"]
     pub iproyal_endpoint: Option<String>,
 
     /// IPRoyal token
     #[arg(long)]
-    #[override_key("iproyal.token")]
+    #[override_key = "iproyal.token"]
     pub iproyal_token: Option<String>,
 
     /// timeout (e.g. 5m, 10s)
     #[arg(long)]
-    #[override_key("iproyal.timeout")]
+    #[override_key = "iproyal.timeout"]
     pub iproyal_timeout: Option<String>,
 }

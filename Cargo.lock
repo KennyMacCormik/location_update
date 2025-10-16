@@ -544,9 +544,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "override_key_core"
+version = "0.1.0"
+dependencies = [
+ "config",
+]
+
+[[package]]
 name = "override_key_derive"
 version = "0.1.0"
 dependencies = [
+ "override_key_core",
  "proc-macro2",
  "quote",
  "syn",
@@ -892,6 +900,7 @@ dependencies = [
  "clap",
  "config",
  "humantime-serde",
+ "override_key_core",
  "override_key_derive",
  "serde",
  "serde_json",

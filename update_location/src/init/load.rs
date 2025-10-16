@@ -1,5 +1,6 @@
 use config::{Config, Environment, File};
-use crate::models::{AppConfig, CLIArgs, constants::ENV_PREFIX, ConfigError, ApplyOverrides};
+use override_key_core::ApplyOverrides;
+use crate::models::{AppConfig, CLIArgs, constants::ENV_PREFIX, ConfigError};
 
 /// Load configuration from file, environment, and CLI arguments.
 pub fn load_config(args: &CLIArgs) -> Result<AppConfig, ConfigError> {
