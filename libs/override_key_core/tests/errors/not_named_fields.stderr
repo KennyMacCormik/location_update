@@ -1,0 +1,5 @@
+error: ApplyOverrides requires a struct with named fields
+ --> tests/errors/not_named_fields.rs:5:17
+  |
+5 | struct TupleArgs(String, String);
+  |                 ^^^^^^^^^^^^^^^^

@@ -1,0 +1,5 @@
+error: expected string literal, e.g. #[override_key = "custom.path"]
+ --> tests/errors/bad_literal.rs:6:22
+  |
+6 |     #[override_key = 123]
+  |                      ^^^
