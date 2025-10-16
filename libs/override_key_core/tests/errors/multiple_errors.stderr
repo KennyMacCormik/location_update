@@ -1,0 +1,17 @@
+error: invalid #[override_key(...)] syntax: unexpected literal in nested attribute, expected ident
+ --> tests/errors/multiple_errors.rs:6:5
+  |
+6 |     #[override_key(123)]
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+error: missing `infer` keyword — expected #[override_key(infer[, prefix = "..."])]
+ --> tests/errors/multiple_errors.rs:6:5
+  |
+6 |     #[override_key(123)]
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+error: missing `infer` keyword — expected #[override_key(infer[, prefix = "..."])]
+  --> tests/errors/multiple_errors.rs:10:5
+   |
+10 |     #[override_key(prefix = "netnut")]
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
