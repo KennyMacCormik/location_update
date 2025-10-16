@@ -11,3 +11,4 @@ config = "0.15.18"
 
 [dev-dependencies]
 override_key_derive = { path = "../override_key_derive" }
+trybuild = "1.0.112"
