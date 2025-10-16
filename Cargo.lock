@@ -548,6 +548,7 @@ name = "override_key_core"
 version = "0.1.0"
 dependencies = [
  "config",
+ "override_key_derive",
 ]
 
 [[package]]

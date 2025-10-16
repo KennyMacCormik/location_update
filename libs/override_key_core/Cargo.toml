@@ -8,3 +8,6 @@ path = "src/lib.rs"
 
 [dependencies]
 config = "0.15.18"
+
+[dev-dependencies]
+override_key_derive = { path = "../override_key_derive" }
