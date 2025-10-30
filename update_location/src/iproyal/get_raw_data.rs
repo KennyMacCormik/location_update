@@ -1,17 +1,20 @@
 use std::time::Duration;
 use reqwest::{{Client}};
+use thiserror::Error;
 use url::ParseError;
-use crate::iproyal::iproyal_data_models::Root;
+use crate::iproyal::models::Root;
 use crate::models::IPRoyalConfig;
 
-#[derive(Debug)]
+#[derive(Debug, Error)]
 pub enum IPRoyalGetCountryError {
+    #[error("failed to join URL: {0}")]
     JoinURLError(ParseError),
+    #[error("request error: {0}")]
     URLError(reqwest::Error),
 }
 
 const ENDPOINT: &str = "access/countries";
-const DEFAULT_TIMEOUT: Duration = Duration::from_secs(10);
+const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30);
 
 pub async fn get_raw_data(cfg: &IPRoyalConfig) -> Result<Root, IPRoyalGetCountryError> {
     let http_client = Client::new();
