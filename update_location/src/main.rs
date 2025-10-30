@@ -37,13 +37,23 @@ async fn main() {
         Err(e) => eprintln!("iproyal request failed: {e:?}"),
     }
 
-    match infatica::get_raw_data(&cfg.infatica).await {
+    match infatica::geo_nodes(&cfg.infatica).await {
         Ok(r) => {
-            println!("infatica request succeeded");
+            println!("infatica geo_nodes succeeded");
             println!("infatica records {}", r.len());
             println!("infatica first record: {:?}", &r[0]);
             println!();
         },
-        Err(e) => eprintln!("infatica request failed: {e:?}"),
+        Err(e) => eprintln!("infatica geo_nodes request failed: {e:?}"),
+    }
+
+    match infatica::isp_codes(&cfg.infatica).await {
+        Ok(r) => {
+            println!("infatica isp_codes succeeded");
+            println!("infatica isp_codes records {}", r.len());
+            println!("infatica first record: {:?}", &r[0]);
+            println!();
+        },
+        Err(e) => eprintln!("infatica isp_codes request failed: {e:?}"),
     }
 }
