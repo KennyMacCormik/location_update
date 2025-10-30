@@ -1,0 +1,5 @@
+error: missing `infer` keyword — expected #[override_key(infer[, prefix = "..."])]
+ --> tests/errors/missing_infer_keyword.rs:6:5
+  |
+6 |     #[override_key(prefix = "iproyal")]
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

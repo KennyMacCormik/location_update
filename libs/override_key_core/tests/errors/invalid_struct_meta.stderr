@@ -1,0 +1,5 @@
+error: expected `infer_keys` or `prefix = "..."`
+ --> tests/errors/invalid_struct_meta.rs:4:19
+  |
+4 | #[apply_overrides(bad_token, prefixx = "oops")]
+  |                   ^^^^^^^^^

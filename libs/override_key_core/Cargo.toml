@@ -1,0 +1,14 @@
+[package]
+name = "override_key_core"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+config = "0.15.18"
+
+[dev-dependencies]
+override_key_derive = { path = "../override_key_derive" }
+trybuild = "1.0.112"

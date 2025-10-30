@@ -1,0 +1,5 @@
+error: invalid #[override_key("...")] form — use #[override_key = "..."] instead
+ --> tests/errors/invalid_syntax.rs:6:5
+  |
+6 |     #[override_key("iproyal.endpoint")]
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

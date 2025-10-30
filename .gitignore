@@ -1,0 +1,67 @@
+# Cargo output
+/target/
+/**/target/
+
+# Binaries and artifacts
+**/*.rlib
+**/*.rmeta
+**/*.d
+**/*.o
+**/*.so
+**/*.dll
+**/*.dylib
+**/*.exe
+**/*.pdb
+
+# Coverage and profiling
+/coverage/
+/htmlcov/
+/profraw/
+/profdata/
+*.profraw
+*.profdata
+*.gcno
+*.gcda
+
+# Local build, benches, examples
+**/*.log
+**/*.tmp
+**/*.old
+
+# rustup and toolchains
+.rustup/
+.toolchain
+
+# Editor/IDE
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tests and snapshots (adjust to your frameworks)
+.snapshots/
+insta/
+assert_fs/
+
+# Wasm / Bindgen outputs
+pkg/
+wasm-pack.log
+
+# Docs and generated files
+/target/doc/
+/doc/
+
+# Docker and containers
+.env
+.env.*
+docker/*.log
+
+# Misc caches
+.cache/
+node_modules/
+
+# Optional: ignore crates built via cargo install --path .
+bin/
