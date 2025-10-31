@@ -1,46 +1,40 @@
-use serde::{Deserialize, Serialize};
+use crate::infatica::internal::models::{InfaticaGeoNodeRecord, InfaticaIspRecord, InfaticaRegionRecord, InfaticaZipRecord};
 
-/// Extra form fields passed to Infatica HTTP queries.
-pub type InfaticaFormFields = Vec<(String, String)>;
-
-/// Root-level type: Infatica returns an array of records.
-pub type InfaticaRecords = Vec<Vec<InfaticaGeoNodeRecord>>;
-
-/// One record in the Infatica dataset.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct InfaticaGeoNodeRecord {
-    /// ISO 3166-1 alpha-2 country code (e.g. "US", "DE")
-    pub country: String,
-
-    /// Subdivision / region / state (may be empty string)
-    pub subdivision: String,
-
-    /// City name (may be "XX" when missing)
-    pub city: String,
-
-    /// Internet Service Provider name
-    pub isp: String,
-
-    /// Autonomous System Number
-    pub asn: u32,
-
-    /// Postal / ZIP code (may contain non-numeric text)
-    pub zip: String,
-
-    /// Number of nodes available in this region/city/ISP
-    pub nodes: u32,
+pub struct InfaticaQueryResults{
+	geo_nodes: Vec<InfaticaGeoNodeRecord>,
+	region_codes: Vec<InfaticaRegionRecord>,
+	zip_codes: Vec<InfaticaZipRecord>,
+	isp_codes: Vec<InfaticaIspRecord>,
 }
 
-/// Root-level type: Infatica returns an array of arrays of ISP records.
-pub type InfaticaIspRecords = Vec<Vec<InfaticaIspRecord>>;
+impl InfaticaQueryResults {
+	pub fn new(
+		geo_nodes: Vec<InfaticaGeoNodeRecord>,
+		region_codes: Vec<InfaticaRegionRecord>,
+		zip_codes: Vec<InfaticaZipRecord>,
+		isp_codes: Vec<InfaticaIspRecord>,
+	) -> Self {
+		Self {
+			geo_nodes,
+			region_codes,
+			zip_codes,
+			isp_codes,
+		}
+	}
 
-/// A single ISP record in Infatica's dictionary dump.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct InfaticaIspRecord {
-    /// The ISP’s name or descriptive label.
-    /// May contain quotes, punctuation, or Unicode characters.
-    pub isp: String,
+	pub fn geo_nodes(&self) -> &Vec<InfaticaGeoNodeRecord> {
+		&self.geo_nodes
+	}
 
-    /// Internal Infatica numeric code for that ISP.
-    pub code: u32,
+	pub fn region_codes(&self) -> &Vec<InfaticaRegionRecord> {
+		&self.region_codes
+	}
+
+	pub fn zip_codes(&self) -> &Vec<InfaticaZipRecord> {
+		&self.zip_codes
+	}
+
+	pub fn isp_codes(&self) -> &Vec<InfaticaIspRecord> {
+		&self.isp_codes
+	}
 }

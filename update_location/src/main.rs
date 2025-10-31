@@ -1,19 +1,19 @@
-mod models;
+mod infatica;
 mod init;
 mod iproyal;
-mod infatica;
+mod models;
 
+use crate::init::load_config;
+use crate::models::CLIArgs;
 use clap::Parser;
 use tokio;
-use crate::init::load_config;
-use crate::models::{CLIArgs};
 
 #[tokio::main]
 async fn main() {
     let args = CLIArgs::parse();
 
     let cfg = match load_config(&args) {
-        Ok(c) => {c        }
+        Ok(c) => c,
         Err(e) => {
             eprintln!("{e}");
             std::process::exit(1);
@@ -28,32 +28,65 @@ async fn main() {
                 "iproyal first country: {{ code: \"{}\", name: \"{}\", cities: \"{}\", states: \"{}\", ip_availability: \"{}\" }}",
                 &r.countries[0].code,
                 &r.countries[0].name,
-                &r.countries[0].cities.as_ref().map(|c| c.options.len()).unwrap_or(0),
-                &r.countries[0].states.as_ref().map(|c| c.options.len()).unwrap_or(0),
-                &r.countries[0].ip_availability.as_deref().map(|c| c).unwrap_or("no data"),
+                &r.countries[0]
+                    .cities
+                    .as_ref()
+                    .map(|c| c.options.len())
+                    .unwrap_or(0),
+                &r.countries[0]
+                    .states
+                    .as_ref()
+                    .map(|c| c.options.len())
+                    .unwrap_or(0),
+                &r.countries[0]
+                    .ip_availability
+                    .as_deref()
+                    .map(|c| c)
+                    .unwrap_or("no data"),
             );
             println!();
-        },
+        }
         Err(e) => eprintln!("iproyal request failed: {e:?}"),
     }
 
-    match infatica::geo_nodes(&cfg.infatica).await {
-        Ok(r) => {
-            println!("infatica geo_nodes succeeded");
-            println!("infatica records {}", r.len());
-            println!("infatica first record: {:?}", &r[0]);
-            println!();
-        },
-        Err(e) => eprintln!("infatica geo_nodes request failed: {e:?}"),
-    }
+    match infatica::get_all(&cfg.infatica).await {
+        Ok(results) => {
+            println!("Infatica queries succeeded");
 
-    match infatica::isp_codes(&cfg.infatica).await {
-        Ok(r) => {
-            println!("infatica isp_codes succeeded");
-            println!("infatica isp_codes records {}", r.len());
-            println!("infatica first record: {:?}", &r[0]);
+            println!("--- GEO NODES ---");
+            println!("Records: {}", results.geo_nodes().len());
+            if let Some(first) = results.geo_nodes().first() {
+                println!("First record: {:?}", first);
+            }
             println!();
-        },
-        Err(e) => eprintln!("infatica isp_codes request failed: {e:?}"),
+
+            println!("--- REGION CODES ---");
+            println!("Records: {}", results.region_codes().len());
+            if let Some(first) = results.region_codes().first() {
+                println!("First record: {:?}", first);
+            }
+            println!();
+
+            println!("--- ZIP CODES ---");
+            println!("Records: {}", results.zip_codes().len());
+            if let Some(first) = results.zip_codes().first() {
+                println!("First record: {:?}", first);
+            }
+            println!();
+
+            println!("--- ISP CODES ---");
+            println!("Records: {}", results.isp_codes().len());
+            if let Some(first) = results.isp_codes().first() {
+                println!("First record: {:?}", first);
+            }
+            println!();
+        }
+
+        Err(errors) => {
+            eprintln!("Infatica query failed with {} error(s):", errors.len());
+            for err in errors {
+                eprintln!("  - {err}");
+            }
+        }
     }
 }
