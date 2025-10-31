@@ -1,29 +1,40 @@
-use serde::{Deserialize, Serialize};
+use crate::infatica::internal::models::{InfaticaGeoNodeRecord, InfaticaIspRecord, InfaticaRegionRecord, InfaticaZipRecord};
 
-/// Root-level type: Infatica returns an array of records.
-pub type InfaticaRecords = Vec<Vec<InfaticaRecord>>;
+pub struct InfaticaQueryResults{
+	geo_nodes: Vec<InfaticaGeoNodeRecord>,
+	region_codes: Vec<InfaticaRegionRecord>,
+	zip_codes: Vec<InfaticaZipRecord>,
+	isp_codes: Vec<InfaticaIspRecord>,
+}
 
-/// One record in the Infatica dataset.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct InfaticaRecord {
-    /// ISO 3166-1 alpha-2 country code (e.g. "US", "DE")
-    pub country: String,
+impl InfaticaQueryResults {
+	pub fn new(
+		geo_nodes: Vec<InfaticaGeoNodeRecord>,
+		region_codes: Vec<InfaticaRegionRecord>,
+		zip_codes: Vec<InfaticaZipRecord>,
+		isp_codes: Vec<InfaticaIspRecord>,
+	) -> Self {
+		Self {
+			geo_nodes,
+			region_codes,
+			zip_codes,
+			isp_codes,
+		}
+	}
 
-    /// Subdivision / region / state (may be empty string)
-    pub subdivision: String,
+	pub fn geo_nodes(&self) -> &Vec<InfaticaGeoNodeRecord> {
+		&self.geo_nodes
+	}
 
-    /// City name (may be "XX" when missing)
-    pub city: String,
+	pub fn region_codes(&self) -> &Vec<InfaticaRegionRecord> {
+		&self.region_codes
+	}
 
-    /// Internet Service Provider name
-    pub isp: String,
+	pub fn zip_codes(&self) -> &Vec<InfaticaZipRecord> {
+		&self.zip_codes
+	}
 
-    /// Autonomous System Number
-    pub asn: u32,
-
-    /// Postal / ZIP code (may contain non-numeric text)
-    pub zip: String,
-
-    /// Number of nodes available in this region/city/ISP
-    pub nodes: u32,
+	pub fn isp_codes(&self) -> &Vec<InfaticaIspRecord> {
+		&self.isp_codes
+	}
 }
